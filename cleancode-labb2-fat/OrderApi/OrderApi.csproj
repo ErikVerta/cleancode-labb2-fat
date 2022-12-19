@@ -13,7 +13,6 @@
   <ItemGroup>
     <Folder Include="Controllers\" />
     <Folder Include="DAL\Repositories\" />
-    <Folder Include="Services\" />
   </ItemGroup>
 
   <ItemGroup>

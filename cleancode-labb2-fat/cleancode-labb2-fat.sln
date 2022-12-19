@@ -7,9 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared", "Shared\Shared.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RecipeApi", "RecipeApi\RecipeApi.csproj", "{238E2211-B976-4D4F-A493-2546093B99F0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderApi", "OrderApi\OrderApi.csproj", "{EEF826E4-A06B-46FB-A148-7F74663B7D54}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrderApi", "OrderApi\OrderApi.csproj", "{EEF826E4-A06B-46FB-A148-7F74663B7D54}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IngredientApi", "IngredientApi\IngredientApi.csproj", "{D2F14A64-9757-44AA-AB47-F29626EB4575}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IngredientApi", "IngredientApi\IngredientApi.csproj", "{D2F14A64-9757-44AA-AB47-F29626EB4575}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Microservices", "Microservices", "{A3D6C48E-0C26-41C4-8353-700DA6264EB7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{9E6C60BE-BA63-4162-8D70-98E318ED68C7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,6 +40,11 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{238E2211-B976-4D4F-A493-2546093B99F0} = {A3D6C48E-0C26-41C4-8353-700DA6264EB7}
+		{EEF826E4-A06B-46FB-A148-7F74663B7D54} = {A3D6C48E-0C26-41C4-8353-700DA6264EB7}
+		{D2F14A64-9757-44AA-AB47-F29626EB4575} = {A3D6C48E-0C26-41C4-8353-700DA6264EB7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {41BD0F11-83DF-4844-BEC4-47F56BDCB217}
