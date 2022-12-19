@@ -1,5 +1,4 @@
-﻿using FakeItEasy;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using OrderApi.DAL;
 using OrderApi.DAL.Repositories;
 using Shared;
@@ -8,20 +7,42 @@ namespace OrderApi.Tests
 {
     public class OrderApiRepositoryTests
     {
-        private readonly OrderContext _orderContext;
-
-        public OrderApiRepositoryTests()
+        private async Task<OrderContext> GetDbContext()
         {
-            _orderContext = A.Fake<OrderContext>();
+            var options = new DbContextOptionsBuilder<OrderContext>()
+                .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+                .Options;
+            var databaseContext = new OrderContext(options);
+            databaseContext.Database.EnsureCreated();
+            if(await databaseContext.Orders.CountAsync() < 0)
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    databaseContext.Orders.Add(
+                    new Order()
+                    {
+                        OrderDate = DateTime.Now,
+                        Pizzas = new List<Pizza>
+                        {
+                            new Pizza()
+                            {
+                                Name = "Vesuvio",
+                                Price = 100
+                            }
+                        }
+                    });
+                    await databaseContext.SaveChangesAsync();
+                }
+            }
+            return databaseContext;
         }
 
         [Fact]
         public async Task OrderRepository_GetAllOrdersAsync_ReturnsListOfOrderObjects()
         {
             // Arrange
-            var fakeDbSet = A.Fake<DbSet<Order>>();
-            var repository = new OrderRepository(_orderContext);
-            A.CallTo(() => _orderContext.Orders).Returns(fakeDbSet);
+            var dbContext = await GetDbContext();
+            var repository = new OrderRepository(dbContext);
 
             // Act
             var response = await repository.GetAllOrdersAsync();
@@ -33,14 +54,13 @@ namespace OrderApi.Tests
 
         [Theory]
         [InlineData(1)]
-        [InlineData(10)]
-        [InlineData(100)]
+        [InlineData(4)]
+        [InlineData(6)]
         public async Task OrderRepository_GetOrderByIdAsync_ReturnsOrderObject(int id)
         {
             // Arrange
-            var fakeDbSet = A.Fake<DbSet<Order>>();
-            var repository = new OrderRepository(_orderContext);
-            A.CallTo(() => _orderContext.Orders).Returns(fakeDbSet);
+            var dbContext = await GetDbContext();
+            var repository = new OrderRepository(dbContext);
 
             // Act
             var response = await repository.GetOrderByIdAsync(id);
@@ -54,14 +74,23 @@ namespace OrderApi.Tests
         public async Task OrderRepository_AddOrderAsync_ReturnsOrderObject()
         {
             // Arrange
-            var fakeDbSet = A.Fake<DbSet<Order>>();
-            var dummy = A.Dummy<Order>();
-            var repository = new OrderRepository(_orderContext);
-            A.CallTo(() => _orderContext.Orders).Returns(fakeDbSet);
-            A.CallTo(() => fakeDbSet.AddAsync(A<Order>.Ignored)).Returns(dummy);
+            var order = new Order()
+            {
+                OrderDate = DateTime.Now,
+                Pizzas = new List<Pizza>
+                {
+                    new Pizza()
+                    {
+                        Name = "Kebab",
+                        Price = 110
+                    }
+                }
+            };
+            var dbContext = await GetDbContext();
+            var repository = new OrderRepository(dbContext);
 
             // Act
-            var response = await repository.AddOrderAsync(dummy);
+            var response = await repository.AddOrderAsync(order);
 
             // Assert
             Assert.NotNull(response);
