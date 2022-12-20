@@ -6,16 +6,18 @@ namespace RecipeApi.DAL.Repositories
 {
     public class RecipeRepository : IRecipeRepository
     {
-        private readonly DbContext context;
+        private readonly RecipeContext _context;
 
-        public RecipeRepository(DbContext context)
+        public RecipeRepository(RecipeContext context)
         {
-            this.context = context;
+            _context = context;
         }
 
-        public Task<Pizza> AddRecipeAsync(Pizza pizza)
+        public async Task<Pizza> AddRecipeAsync(Pizza pizza)
         {
-            throw new NotImplementedException();
+            _context.Recipes.Add(pizza);
+            await _context.SaveChangesAsync();
+            return pizza;
         }
 
         public Task<Pizza> DeleteRecipeAsync(int id)
@@ -23,9 +25,9 @@ namespace RecipeApi.DAL.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<Pizza>> GetAllRecipesAsync()
+        public async Task<IEnumerable<Pizza>> GetAllRecipesAsync()
         {
-            throw new NotImplementedException();
+            return _context.Recipes;
         }
 
         public Task<IEnumerable<Order>> GetOrdersByRecipeIdAsync(int id)
@@ -33,9 +35,9 @@ namespace RecipeApi.DAL.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<Pizza> GetRecipeByIdAsync(int id)
+        public async Task<Pizza> GetRecipeByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Recipes.FirstOrDefaultAsync(r => r.Id == id);
         }
 
         public Task<Pizza> ModifyRecipeAsync(int id, List<Ingredient> ingredients)

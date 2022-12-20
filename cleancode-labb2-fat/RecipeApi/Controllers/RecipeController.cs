@@ -6,28 +6,34 @@ namespace RecipeApi.Controllers
 {
     public class RecipeController : Controller
     {
-        private readonly IRecipeRepository recipeRepo;
+        private readonly IRecipeRepository _recipeRepo;
 
         public RecipeController(IRecipeRepository recipeRepo)
         {
-            this.recipeRepo = recipeRepo;
+            _recipeRepo = recipeRepo;
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAllRecipesAsync()
         {
-            throw new NotImplementedException();
+            var recipes = await _recipeRepo.GetAllRecipesAsync();
+            return Ok(recipes);
         }
         [HttpGet("/{id}")]
         public async Task<IActionResult> GetRecipeByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var recipe = await _recipeRepo.GetRecipeByIdAsync(id);
+            return Ok(recipe);
         }
 
         [HttpPost]
         public async Task<IActionResult> PostRecipeAsync([FromBody] Pizza recipe)
         {
-            throw new NotImplementedException();
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            var addedRecipe = await _recipeRepo.AddRecipeAsync(recipe);
+            return Ok(addedRecipe);
         }
     }
 }
