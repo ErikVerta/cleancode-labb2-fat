@@ -1,0 +1,159 @@
+{
+	"info": {
+		"_postman_id": "03bcf0d4-8731-4b42-a827-a82676fed5cf",
+		"name": "OrderApi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23514572"
+	},
+	"item": [
+		{
+			"name": "Get All Orders",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Set the request method to GET\r",
+							"pm.test(\"Request method is GET\", () => {\r",
+							"    pm.expect(pm.request.method).to.be.equal(\"GET\");\r",
+							"});\r",
+							"\r",
+							"// Check the response status code\r",
+							"pm.test(\"Response status code is 200\", ()=>{\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Check the response body\r",
+							"pm.test(\"Response body is correct\", () => {\r",
+							"    var jsonData = pm.response.json();\r",
+							"\r",
+							"    // Check that the response body has the expected structure\r",
+							"    pm.expect(jsonData).to.be.an(\"array\");\r",
+							"    pm.expect(jsonData[0]).to.have.property(\"Pizzas\").that.is.an(\"array\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7216/order",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7216",
+					"path": [
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Order By Id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Set the request method to GET\r",
+							"pm.test(\"Request method is GET\", () => {\r",
+							"    pm.expect(pm.request.method).to.be.equal(\"GET\");\r",
+							"});\r",
+							"\r",
+							"// Check the response status code\r",
+							"pm.test(\"Response status code is 200\", ()=>{\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Check the response body\r",
+							"pm.test(\"Response body is correct\", () => {\r",
+							"    var jsonData = pm.response.json();\r",
+							"\r",
+							"    // Check that the response body has the expected structure\r",
+							"    pm.expect(jsonData).to.have.property(\"pizzas\").that.is.an(\"array\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7216/order/1",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7216",
+					"path": [
+						"order",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Order",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Set the request method to GET\r",
+							"pm.test(\"Request method is POST\", () => {\r",
+							"    pm.expect(pm.request.method).to.be.equal(\"POST\");\r",
+							"});\r",
+							"\r",
+							"// Check the response status code\r",
+							"pm.test(\"Response status code is 200\", ()=>{\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Check the response body\r",
+							"pm.test(\"Response body is correct\", () => {\r",
+							"    var jsonData = pm.response.json();\r",
+							"\r",
+							"    // Check that the response body has the expected structure\r",
+							"    pm.expect(jsonData).to.have.property(\"pizzas\").that.is.an(\"array\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"orderDate\": \"2022-01-20\",\r\n    \"Pizzas\":[\r\n        {\r\n            \"name\": \"Kebab\",\r\n            \"Price\": 100\r\n        }\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:7216/order",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7216",
+					"path": [
+						"order"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
