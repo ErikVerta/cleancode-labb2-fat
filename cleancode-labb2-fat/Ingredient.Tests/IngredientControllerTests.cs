@@ -4,6 +4,7 @@ using IngredientApi.Controllers;
 using IngredientApi.DAL.Repositories;
 using IngredientApi.Interfaces;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,8 +39,7 @@ namespace Ingredient.Tests
             A.CallTo(() => _ingredientRepository.GetAllIngredientsAsync()).Returns(ingredients);
 
             //Act
-            //Ska inte heta index sen?
-            var result = _ingredientController.Index();
+            var result = _ingredientController.GetAllIngredientsAsync();
 
             //Assert
             result.Should().BeOfType<List<Shared.Ingredient>>();
@@ -54,26 +54,32 @@ namespace Ingredient.Tests
             A.CallTo(() => _ingredientRepository.GetIngredientByIdAsync(id));
 
             //Act
-            //Namnet från controllern där det står index
-            var result = _ingredientController.Index(id);
+            var result = _ingredientController.GetIngredientByIdAsync(id);
 
             //Assert
             result.Should().BeOfType<Shared.Ingredient>();
         }
 
         [Fact]
-        public void IngredientController_Add_ReturnsTrue()
+        public async Task IngredientController_Add_ReturnsOk()
         {
-            //Arrange
-            var ingredient = new Shared.Ingredient()
-            {
-                Name = "Cheese",
-            };
+            // Arrange
+            var dummy = A.Dummy<Shared.Ingredient>();
+            var controller = new IngredientController(_ingredientRepository, _httpContextAccessor);
+            A.CallTo(() => _ingredientRepository.AddIngredientAsync(A<Shared.Ingredient>.Ignored)).Returns(dummy);
 
-            //Act
-            
-            //Assert
-            
+            // Act
+            var response = await controller.AddIngredientAsync(dummy);
+            var result = (response as OkObjectResult);
+            var value = (result.Value as Shared.Ingredient);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.NotNull(result.Value);
+            Assert.Equal(200, result.StatusCode);
+            Assert.Equal(dummy, value);
+            Assert.IsType<Shared.Ingredient>(value);
+
         }
     }
 }

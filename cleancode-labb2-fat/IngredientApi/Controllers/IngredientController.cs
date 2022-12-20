@@ -1,5 +1,6 @@
 ﻿using IngredientApi.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Shared;
 
 namespace IngredientApi.Controllers
 {
@@ -14,11 +15,19 @@ namespace IngredientApi.Controllers
             _httpContextAccessor = httpContextAccessor;
 
         }
-        public IActionResult Index()
+        public async Task<List<Ingredient>> GetAllIngredientsAsync()
         {
-            return View();
+            throw new NotImplementedException();
         }
 
+        public async Task<Ingredient> GetIngredientByIdAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
 
+        public async Task AddIngredientAsync(Ingredient ingredient)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
