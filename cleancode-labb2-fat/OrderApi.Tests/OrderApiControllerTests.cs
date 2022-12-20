@@ -66,7 +66,7 @@ namespace OrderApi.Tests
             // Arrange
             var dummy = A.Dummy<Order>();
             var controller = new OrderController(_orderRepository);
-            A.CallTo(() => _orderRepository.AddOrderAsync(dummy)).Returns(dummy);
+            A.CallTo(() => _orderRepository.AddOrderAsync(A<Order>.Ignored)).Returns(dummy);
 
             // Act
             var response = await controller.PostOrderAsync(dummy);
