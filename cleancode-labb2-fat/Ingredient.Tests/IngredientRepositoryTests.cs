@@ -70,7 +70,7 @@ namespace Ingredients.Tests
         }
 
         [Fact]
-        public async void IngredientRepository_Add_ReturnsTrue()
+        public async void IngredientRepository_Add_Returns()
         {
             //Arrange
             var ingredient = new Shared.Ingredient()
@@ -84,8 +84,8 @@ namespace Ingredients.Tests
             var result = ingredientRepository.AddIngredientAsync(ingredient);
 
             //Assert
-            //Vad ska stå efter should, ska den här returnera något, gör om till bool?
-            result.Should();
+            Assert.NotNull(result);
+            Assert.IsType<Shared.Ingredient>(result);
         }
 
     }
