@@ -1,0 +1,153 @@
+{
+	"info": {
+		"_postman_id": "c62b8cc2-889f-49ae-b513-1ccafd630783",
+		"name": "RecipeApi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23514572"
+	},
+	"item": [
+		{
+			"name": "Get All Recipes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Set the request method to GET\r",
+							"pm.test(\"Request method is GET\", () => {\r",
+							"    pm.expect(pm.request.method).to.be.equal(\"GET\");\r",
+							"});\r",
+							"\r",
+							"// Check the response status code\r",
+							"pm.test(\"Response status code is 200\", ()=>{\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Check the response body\r",
+							"pm.test(\"Response body is correct\", () => {\r",
+							"    var jsonData = pm.response.json();\r",
+							"\r",
+							"    // Check that the response body has the expected structure\r",
+							"    pm.expect(jsonData).to.be.an(\"array\");\r",
+							"    pm.expect(jsonData[0]).to.have.property(\"name\").that.is.a(\"string\");\r",
+							"    pm.expect(jsonData[0]).to.have.property(\"ingredients\").that.is.an(\"array\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7216/recipe",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7216",
+					"path": [
+						"recipe"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Recipe By Id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Set the request method to GET\r",
+							"pm.test(\"Request method is GET\", () => {\r",
+							"    pm.expect(pm.request.method).to.be.equal(\"GET\");\r",
+							"});\r",
+							"\r",
+							"// Check the response status code\r",
+							"pm.test(\"Response status code is 200\", ()=>{\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Check the response body\r",
+							"pm.test(\"Response body is correct\", () => {\r",
+							"    var jsonData = pm.response.json();\r",
+							"\r",
+							"    // Check that the response body has the expected structure\r",
+							"    pm.expect(jsonData).to.have.property(\"name\").that.is.a(\"string\");\r",
+							"    pm.expect(jsonData).to.have.property(\"ingredients\").that.is.an(\"array\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7216/recipe/1",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7216",
+					"path": [
+						"recipe",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Post Recipe",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Set the request method to GET\r",
+							"pm.test(\"Request method is POST\", () => {\r",
+							"    pm.expect(pm.request.method).to.be.equal(\"POST\");\r",
+							"});\r",
+							"\r",
+							"// Check the response status code\r",
+							"pm.test(\"Response status code is 200\", ()=>{\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"// Check the response body\r",
+							"pm.test(\"Response body is correct\", () => {\r",
+							"    var jsonData = pm.response.json();\r",
+							"\r",
+							"    // Check that the response body has the expected structure\r",
+							"    pm.expect(jsonData).to.have.property(\"name\").that.is.a(\"string\");\r",
+							"    pm.expect(jsonData).to.have.property(\"ingredients\").that.is.an(\"array\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:7216/recipe",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "7216",
+					"path": [
+						"recipe"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
