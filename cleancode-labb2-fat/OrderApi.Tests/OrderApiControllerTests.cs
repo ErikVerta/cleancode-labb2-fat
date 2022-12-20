@@ -1,11 +1,7 @@
 using FakeItEasy;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using OrderApi.Controllers;
-using OrderApi.DAL;
-using OrderApi.DAL.Repositories;
 using OrderApi.Interfaces;
-using Shared;
 
 namespace OrderApi.Tests
 {

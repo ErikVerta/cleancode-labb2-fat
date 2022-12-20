@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OrderApi.DAL;
 using OrderApi.DAL.Repositories;
-using Shared;
 
 namespace OrderApi.Tests
 {
