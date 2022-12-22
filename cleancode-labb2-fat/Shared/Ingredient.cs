@@ -1,9 +1,13 @@
-﻿namespace Shared
+﻿using System.Text.Json.Serialization;
+
+namespace Shared
 {
     public class Ingredient
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public List<Recipe> Recipes { get; set; }
+
+        [JsonIgnore]
+        public virtual ICollection<Pizza> Pizzas { get; set; }
     }
 }

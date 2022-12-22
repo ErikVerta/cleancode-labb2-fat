@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "RecipeApi": {
+    "PizzaApi": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
