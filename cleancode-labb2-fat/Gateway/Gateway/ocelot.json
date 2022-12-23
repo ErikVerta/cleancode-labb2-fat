@@ -1,0 +1,79 @@
+{
+  "Routes": [
+    {
+      "UpstreamPathTemplate": "/ingredients",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "pizzaapi",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/ingredients"
+    },
+    {
+      "UpstreamPathTemplate": "/ingredients/{id}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "pizzaapi",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/ingredients/{id}"
+    },
+    {
+      "UpstreamPathTemplate": "/pizza",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "pizzaapi",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/pizza"
+    },
+    {
+      "UpstreamPathTemplate": "/pizza/{id}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "pizzaapi",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/pizza/{id}"
+    },
+    {
+      "UpstreamPathTemplate": "/orders",
+      "UpstreamHttpMethod": [ "Get", "Post" ],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "orderapi",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/orders"
+    },
+    {
+      "UpstreamPathTemplate": "/orders/{id}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "orderapi",
+          "Port": 80
+        }
+      ],
+      "DownstreamPathTemplate": "/orders/{id}"
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:8001"
+  }
+}

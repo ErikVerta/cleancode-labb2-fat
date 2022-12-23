@@ -3,21 +3,19 @@
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 WORKDIR /app
 EXPOSE 80
-EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["PizzaApi/PizzaApi.csproj", "PizzaApi/"]
-COPY ["Shared/Shared.csproj", "Shared/"]
-RUN dotnet restore "PizzaApi/PizzaApi.csproj"
+COPY ["Gateway/Gateway/Gateway.csproj", "Gateway/Gateway/"]
+RUN dotnet restore "Gateway/Gateway/Gateway.csproj"
 COPY . .
-WORKDIR "/src/PizzaApi"
-RUN dotnet build "PizzaApi.csproj" -c Release -o /app/build
+WORKDIR "/src/Gateway/Gateway"
+RUN dotnet build "Gateway.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "PizzaApi.csproj" -c Release -o /app/publish
+RUN dotnet publish "Gateway.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "PizzaApi.dll"]
+ENTRYPOINT ["dotnet", "Gateway.dll"]

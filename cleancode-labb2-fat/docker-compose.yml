@@ -13,7 +13,7 @@ services:
     networks:
       - backend
     ports:
-      - 8001:1433
+      - 18001:1433
   pizzaapi:
     container_name: pizza-api
     image: ${DOCKER_REGISTRY-}pizzaapi
@@ -22,9 +22,6 @@ services:
       dockerfile: PizzaApi/Dockerfile
     networks:
       - backend
-    ports:
-      - 8002:80
-      - 8002:443
     environment:
       - DB_HOST=pizzadb
       - DB_NAME=pizza
@@ -37,10 +34,17 @@ services:
       dockerfile: OrderApi/Dockerfile
     networks:
       - backend
-    ports:
-      - 8004:80
-      - 8004:443
     environment:
       - DB_HOST=pizzadb
       - DB_NAME=order
       - DB_SA_PASSWORD=thepassword123
+  gateway:
+    container_name: api-gateway
+    image: ${DOCKER_REGISTRY-}gateway
+    build:
+      context: .
+      dockerfile: Gateway/Gateway/Dockerfile
+    ports:
+      - 8001:80
+    networks:
+      - backend

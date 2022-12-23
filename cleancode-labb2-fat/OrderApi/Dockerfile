@@ -15,7 +15,7 @@ WORKDIR "/src/OrderApi"
 RUN dotnet build "OrderApi.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "OrderApi.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "OrderApi.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app
