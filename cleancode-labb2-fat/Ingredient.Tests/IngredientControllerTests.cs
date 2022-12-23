@@ -1,14 +1,9 @@
 ﻿using FakeItEasy;
 using FluentAssertions;
-using IngredientApi.Controllers;
-using IngredientApi.DAL.Repositories;
-using IngredientApi.Interfaces;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
+using PizzaApi.Controllers;
+using PizzaApi.Interfaces;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -19,16 +14,14 @@ namespace Ingredient.Tests
 
         private IngredientController _ingredientController;
         private IIngredientRepository _ingredientRepository;
-        private IHttpContextAccessor _httpContextAccessor;
 
         public IngredientControllerTests()
         {
             //Dependencies
             _ingredientRepository = A.Fake<IIngredientRepository>();
-            _httpContextAccessor = A.Fake<HttpContextAccessor>();
 
             //SUT
-            _ingredientController = new IngredientController(_ingredientRepository, _httpContextAccessor);
+            _ingredientController = new IngredientController(_ingredientRepository);
         }
 
         [Fact]
@@ -60,13 +53,15 @@ namespace Ingredient.Tests
             result.Should().BeOfType<Shared.Ingredient>();
         }
 
-        //[Fact]
-        //public async Task IngredientController_Add_ReturnsOk()
-        //{
-        //    // Arrange
-        //    var dummy = A.Dummy<Shared.Ingredient>();
-        //    var controller = new IngredientController(_ingredientRepository, _httpContextAccessor);
-        //    A.CallTo(() => _ingredientRepository.AddIngredientAsync(A<Shared.Ingredient>.Ignored)).Returns(dummy);
+
+        [Fact]
+        public async Task IngredientController_Add_ReturnsOk()
+        {
+            // Arrange
+            var dummy = A.Dummy<Shared.Ingredient>();
+            var controller = new IngredientController(_ingredientRepository);
+            A.CallTo(() => _ingredientRepository.AddIngredientAsync(A<Shared.Ingredient>.Ignored)).Returns(dummy);
+
 
         //    // Act
         //    var response = await controller.AddIngredientAsync(dummy);

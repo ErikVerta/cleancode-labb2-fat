@@ -1,25 +1,23 @@
-﻿using IngredientApi.DAL;
-using IngredientApi.DAL.Repositories;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 using FluentAssertions;
+using PizzaApi.DAL;
+using PizzaApi.DAL.Repositories;
 
 namespace Ingredients.Tests
 {
     public class IngredientRepositoryTests
     {
         //Ev behöver byta namn på DbContext
-        private async Task<IngredientContext> GetDbContext()
+        private async Task<PizzaContext> GetDbContext()
         {
-            var options = new DbContextOptionsBuilder<IngredientContext>()
+            var options = new DbContextOptionsBuilder<PizzaContext>()
                 .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
                 .Options;
-            var databaseContext = new IngredientContext(options);
+            var databaseContext = new PizzaContext(options);
             databaseContext.Database.EnsureCreated();
             if(await databaseContext.Ingredients.CountAsync() < 0)
             {

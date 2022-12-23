@@ -1,0 +1,10 @@
+global using Xunit;
+global using FakeItEasy;
+global using Microsoft.AspNetCore.Mvc;
+global using PizzaApi.Interfaces;
+global using PizzaApi.Controllers;
+global using PizzaApi.DAL;
+global using PizzaApi.DAL.Repositories;
+global using Shared;
+global using Microsoft.EntityFrameworkCore;
+global using PizzaApi.DTO;
