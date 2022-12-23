@@ -1,6 +1,7 @@
 using FakeItEasy;
 using Microsoft.AspNetCore.Mvc;
 using OrderApi.Controllers;
+using OrderApi.DTO;
 using OrderApi.Interfaces;
 
 namespace OrderApi.Tests
@@ -35,7 +36,6 @@ namespace OrderApi.Tests
             Assert.NotNull(result.Value);
             Assert.Equal(200, result.StatusCode);
             Assert.Equal(count, value.Count());
-            Assert.IsType<Order>(value.FirstOrDefault());
         }
 
         [Theory]
@@ -58,18 +58,18 @@ namespace OrderApi.Tests
             Assert.NotNull(result);
             Assert.NotNull(result.Value);
             Assert.Equal(200, result.StatusCode);
-            Assert.IsType<Order>(value);
         }
         [Fact]
         public async Task OrderController_PostOrderAsync_ReturnsOk()
         {
             // Arrange
             var dummy = A.Dummy<Order>();
+            var dummyDto = A.Dummy<OrderDTO>();
             var controller = new OrderController(_orderRepository);
-            A.CallTo(() => _orderRepository.AddOrderAsync(A<Order>.Ignored)).Returns(dummy);
+            A.CallTo(() => _orderRepository.AddOrderAsync(A<OrderDTO>.Ignored)).Returns(dummy);
 
             // Act
-            var response = await controller.PostOrderAsync(dummy);
+            var response = await controller.PostOrderAsync(dummyDto);
             var result = (response as OkObjectResult);
             var value = (result.Value as Order);
 
@@ -78,7 +78,6 @@ namespace OrderApi.Tests
             Assert.NotNull(result.Value);
             Assert.Equal(200, result.StatusCode);
             Assert.Equal(dummy, value);
-            Assert.IsType<Order>(value);
         }
     }
 }

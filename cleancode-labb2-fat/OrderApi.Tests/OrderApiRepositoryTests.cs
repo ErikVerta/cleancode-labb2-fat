@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using OrderApi.DAL;
 using OrderApi.DAL.Repositories;
+using OrderApi.DTO;
 
 namespace OrderApi.Tests
 {
@@ -13,7 +14,7 @@ namespace OrderApi.Tests
                 .Options;
             var databaseContext = new OrderContext(options);
             databaseContext.Database.EnsureCreated();
-            if(await databaseContext.Orders.CountAsync() < 0)
+            if(await databaseContext.Orders.CountAsync() < 1)
             {
                 for (int i = 0; i < 10; i++)
                 {
@@ -21,14 +22,10 @@ namespace OrderApi.Tests
                     new Order()
                     {
                         OrderDate = DateTime.Now,
-                        Pizzas = new List<Pizza>
-                        {
-                            new Pizza()
-                            {
-                                Name = "Vesuvio",
-                                Price = 100
-                            }
-                        }
+                        OrderDetails = new List<OrderDetail> 
+                        { 
+                            new OrderDetail{PizzaId = i}
+                        } 
                     });
                     await databaseContext.SaveChangesAsync();
                 }
@@ -73,23 +70,16 @@ namespace OrderApi.Tests
         public async Task OrderRepository_AddOrderAsync_ReturnsOrderObject()
         {
             // Arrange
-            var order = new Order()
-            {
-                OrderDate = DateTime.Now,
-                Pizzas = new List<Pizza>
-                {
-                    new Pizza()
-                    {
-                        Name = "Kebab",
-                        Price = 110
-                    }
-                }
+            var orderDto = new OrderDTO 
+            { 
+                PizzaIds = new List<int> { 1,2,3 }
             };
+
             var dbContext = await GetDbContext();
             var repository = new OrderRepository(dbContext);
 
             // Act
-            var response = await repository.AddOrderAsync(order);
+            var response = await repository.AddOrderAsync(orderDto);
 
             // Assert
             Assert.NotNull(response);

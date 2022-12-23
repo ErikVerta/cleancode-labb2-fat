@@ -36,7 +36,7 @@ namespace Ingredients.Tests
         }
 
         [Fact]
-        public async void IngredientRepository_GetAllAsync_ReturnsIngredients()
+        public async void IngredientRepository_GetAllIngredientsAsync_ReturnsIngredients()
         {
             //Arrange
             var id = 1;
@@ -52,7 +52,7 @@ namespace Ingredients.Tests
         }
 
         [Fact]
-        public async void IngredientRepository_GetByIdAsync_ReturnsIngredient()
+        public async void IngredientRepository_GetIngredientByIdAsync_ReturnsIngredient()
         {
             //Arrange
             var id = 1;
@@ -68,18 +68,19 @@ namespace Ingredients.Tests
         }
 
         [Fact]
-        public async void IngredientRepository_Add_Returns()
+        public async void IngredientRepository_AddIngredientAsync_Returns()
         {
             //Arrange
             var ingredient = new Shared.Ingredient()
             {
                 Name = "Cheese",
             };
+
             var dbContext = await GetDbContext();
             var ingredientRepository = new IngredientRepository(dbContext);
 
             //Act
-            var result = ingredientRepository.AddIngredientAsync(ingredient);
+            var result = await ingredientRepository.AddIngredientAsync(ingredient);
 
             //Assert
             Assert.NotNull(result);

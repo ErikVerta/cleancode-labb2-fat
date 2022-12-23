@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using OrderApi.DTO;
 using OrderApi.Interfaces;
 using Shared;
 
@@ -31,12 +32,12 @@ namespace OrderApi.Controllers
         }
 
         [HttpPost("/orders")]
-        public async Task<IActionResult> PostOrderAsync([FromBody] Order order)
+        public async Task<IActionResult> PostOrderAsync([FromBody] OrderDTO orderDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest();
 
-            var newOrder = await _orderRepository.AddOrderAsync(order);
+            var newOrder = await _orderRepository.AddOrderAsync(orderDto);
 
             if (newOrder == null)
                 return BadRequest();

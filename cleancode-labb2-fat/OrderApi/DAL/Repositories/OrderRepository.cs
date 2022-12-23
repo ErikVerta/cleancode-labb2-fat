@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using OrderApi.DTO;
 using OrderApi.Interfaces;
 using Shared;
 
@@ -15,48 +16,49 @@ namespace OrderApi.DAL.Repositories
 
         public async Task<IEnumerable<Order>> GetAllOrdersAsync()
         {
-            var orders = await _context.Orders.ToListAsync();
+            var orders = _context.Orders.Include(o => o.OrderDetails);
             return orders;
         }
 
         public async Task<Order> GetOrderByIdAsync(int id)
         {
-            var order = await _context.Orders.FirstOrDefaultAsync(o => o.Id == id);
+            var order = await _context.Orders.Include(o => o.OrderDetails).FirstOrDefaultAsync(o => o.Id == id);
             return order;
         }
 
-        public async Task<Order> AddOrderAsync(Order order)
+        public async Task<Order> AddOrderAsync(OrderDTO orderDto)
         {
-            if (_context.Orders.Any(p => p.Id == order.Id))
+            var addOrder = await NewOrderAsync(orderDto);
+
+            if (addOrder == null)
                 return null;
 
-            var addOrder = await NewOrderAsync(order);
-
-            if (order == null)
-                return null;
-
-            await _context.Orders.AddAsync(order);
+            await _context.Orders.AddAsync(addOrder);
             await _context.SaveChangesAsync();
+
             return addOrder;
         }
 
-        private async Task<Order> NewOrderAsync(Order order)
+        private async Task<Order> NewOrderAsync(OrderDTO orderDto)
         {
-            var pizzas = new List<Pizza>();
+            if (orderDto.PizzaIds.Count() < 1)
+                return null;
 
-            foreach (var id in order.Pizzas)
+            var orderDetails = new List<OrderDetail>();
+
+            foreach (var id in orderDto.PizzaIds)
             {
-                var addToOrder = await _context.Pizzas.FindAsync(id);
-                if (addToOrder is null)
-                    return null;
-                pizzas.Add(addToOrder);
+                var orderDetail = new OrderDetail
+                {
+                    PizzaId = id,
+                };
+                orderDetails.Add(orderDetail);
             }
 
             var newOrder = new Order()
             {
-                Id = order.Id,
-                OrderDate = order.OrderDate,
-                Pizzas = pizzas
+                OrderDate = DateTime.Now,
+                OrderDetails = orderDetails
             };
             return newOrder;
         }
