@@ -34,7 +34,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\IngredientApi\IngredientApi.csproj" />
+    <ProjectReference Include="..\PizzaApi\PizzaApi.csproj" />
   </ItemGroup>
 
 </Project>
