@@ -8,6 +8,6 @@ namespace Shared
         public string Name { get; set; }
 
         [JsonIgnore]
-        public virtual ICollection<Pizza> Pizzas { get; set; }
+        public ICollection<Pizza>? Pizzas { get; set; }
     }
 }

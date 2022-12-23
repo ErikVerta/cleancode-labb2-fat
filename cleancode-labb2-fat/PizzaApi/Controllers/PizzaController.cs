@@ -6,7 +6,7 @@ using Shared;
 namespace PizzaApi.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("pizza")]
     public class PizzaController : Controller
     {
         private readonly IPizzaRepository _pizzaRepo;
@@ -22,7 +22,8 @@ namespace PizzaApi.Controllers
             var pizzas = await _pizzaRepo.GetAllPizzasAsync();
             return Ok(pizzas);
         }
-        [HttpGet("/{id}")]
+
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetPizzaByIdAsync(int id)
         {
             var pizza = await _pizzaRepo.GetPizzaByIdAsync(id);
