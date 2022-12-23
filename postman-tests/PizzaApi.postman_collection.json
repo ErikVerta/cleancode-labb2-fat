@@ -1,13 +1,13 @@
 {
 	"info": {
 		"_postman_id": "c62b8cc2-889f-49ae-b513-1ccafd630783",
-		"name": "RecipeApi",
+		"name": "PizzaApi",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "23514572"
 	},
 	"item": [
 		{
-			"name": "Get All Recipes",
+			"name": "Get All Pizzas",
 			"event": [
 				{
 					"listen": "test",
@@ -30,6 +30,7 @@
 							"    // Check that the response body has the expected structure\r",
 							"    pm.expect(jsonData).to.be.an(\"array\");\r",
 							"    pm.expect(jsonData[0]).to.have.property(\"name\").that.is.a(\"string\");\r",
+							"    pm.expect(jsonData[0]).to.have.property(\"price\").that.is.a(\"number\");\r",
 							"    pm.expect(jsonData[0]).to.have.property(\"ingredients\").that.is.an(\"array\");\r",
 							"});"
 						],
@@ -41,21 +42,21 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://localhost:7216/recipe",
+					"raw": "https://localhost:7216/Pizza",
 					"protocol": "https",
 					"host": [
 						"localhost"
 					],
 					"port": "7216",
 					"path": [
-						"recipe"
+						"Pizza"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Get Recipe By Id",
+			"name": "Get Pizza By Id",
 			"event": [
 				{
 					"listen": "test",
@@ -77,6 +78,7 @@
 							"\r",
 							"    // Check that the response body has the expected structure\r",
 							"    pm.expect(jsonData).to.have.property(\"name\").that.is.a(\"string\");\r",
+							"    pm.expect(jsonData).to.have.property(\"price\").that.is.a(\"number\");\r",
 							"    pm.expect(jsonData).to.have.property(\"ingredients\").that.is.an(\"array\");\r",
 							"});"
 						],
@@ -88,14 +90,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://localhost:7216/recipe/1",
+					"raw": "https://localhost:7216/Pizza/1",
 					"protocol": "https",
 					"host": [
 						"localhost"
 					],
 					"port": "7216",
 					"path": [
-						"recipe",
+						"Pizza",
 						"1"
 					]
 				}
@@ -103,7 +105,7 @@
 			"response": []
 		},
 		{
-			"name": "Post Recipe",
+			"name": "Post Pizza",
 			"event": [
 				{
 					"listen": "test",
@@ -125,6 +127,7 @@
 							"\r",
 							"    // Check that the response body has the expected structure\r",
 							"    pm.expect(jsonData).to.have.property(\"name\").that.is.a(\"string\");\r",
+							"    pm.expect(jsonData).to.have.property(\"price\").that.is.a(\"number\");\r",
 							"    pm.expect(jsonData).to.have.property(\"ingredients\").that.is.an(\"array\");\r",
 							"});"
 						],
@@ -135,15 +138,24 @@
 			"request": {
 				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"test\",\r\n    \"price\": 100,\r\n    \"ingredientIds\":[\r\n        1\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "https://localhost:7216/recipe",
+					"raw": "https://localhost:7216/Pizza",
 					"protocol": "https",
 					"host": [
 						"localhost"
 					],
 					"port": "7216",
 					"path": [
-						"recipe"
+						"Pizza"
 					]
 				}
 			},

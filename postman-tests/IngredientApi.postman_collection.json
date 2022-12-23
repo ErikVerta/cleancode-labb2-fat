@@ -134,7 +134,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"id\": 1,\r\n    \"name\": \"Test\"\r\n}",
+					"raw": "{\r\n    \"name\": \"Test\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"

@@ -29,7 +29,8 @@
 							"\r",
 							"    // Check that the response body has the expected structure\r",
 							"    pm.expect(jsonData).to.be.an(\"array\");\r",
-							"    pm.expect(jsonData[0]).to.have.property(\"Pizzas\").that.is.an(\"array\");\r",
+							"    pm.expect(jsonData[0]).to.have.property(\"orderDetails\").that.is.an(\"array\");\r",
+							"    pm.expect(jsonData[0]).to.have.property(\"orderDate\").that.is.an(\"string\");\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -75,7 +76,8 @@
 							"    var jsonData = pm.response.json();\r",
 							"\r",
 							"    // Check that the response body has the expected structure\r",
-							"    pm.expect(jsonData).to.have.property(\"pizzas\").that.is.an(\"array\");\r",
+							"    pm.expect(jsonData).to.have.property(\"orderDetails\").that.is.an(\"array\");\r",
+							"    pm.expect(jsonData).to.have.property(\"orderDate\").that.is.an(\"string\");\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -122,7 +124,8 @@
 							"    var jsonData = pm.response.json();\r",
 							"\r",
 							"    // Check that the response body has the expected structure\r",
-							"    pm.expect(jsonData).to.have.property(\"pizzas\").that.is.an(\"array\");\r",
+							"    pm.expect(jsonData).to.have.property(\"orderDetails\").that.is.an(\"array\");\r",
+							"    pm.expect(jsonData).to.have.property(\"orderDate\").that.is.an(\"string\");\r",
 							"});"
 						],
 						"type": "text/javascript"
@@ -134,7 +137,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"orderDate\": \"2022-01-20\",\r\n    \"Pizzas\":[\r\n        {\r\n            \"name\": \"Kebab\",\r\n            \"Price\": 100\r\n        }\r\n    ]\r\n}",
+					"raw": "{\r\n    \"pizzaIds\": [\r\n        1\r\n    ]\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
