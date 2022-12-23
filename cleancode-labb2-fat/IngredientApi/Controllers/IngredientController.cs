@@ -15,17 +15,17 @@ namespace IngredientApi.Controllers
             _httpContextAccessor = httpContextAccessor;
 
         }
-        public async Task<List<Ingredient>> GetAllIngredientsAsync()
+        public async Task<IActionResult> GetAllIngredientsAsync()
         {
             throw new NotImplementedException();
         }
 
-        public async Task<Ingredient> GetIngredientByIdAsync(int id)
+        public async Task<IActionResult> GetIngredientByIdAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public async Task AddIngredientAsync(Ingredient ingredient)
+        public async Task<IActionResult> AddIngredientAsync(Ingredient ingredient)
         {
             throw new NotImplementedException();
         }

@@ -1,9 +1,0 @@
-global using Xunit;
-global using FakeItEasy;
-global using Microsoft.AspNetCore.Mvc;
-global using RecipeApi.Interfaces;
-global using RecipeApi.Controllers;
-global using RecipeApi.DAL;
-global using RecipeApi.DAL.Repositories;
-global using Shared;
-global using Microsoft.EntityFrameworkCore;
