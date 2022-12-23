@@ -2,6 +2,13 @@
 
 [Database diagram](https://drive.google.com/file/d/1wB6NgBqBcbWlpGmi5RmCkFG-Gyrc5Xm_/view?usp=sharing)
 
+# Docker
+- ##### API-Gateway is running on port 8001
+- ##### MSSQL is running on port 18001
+- ##### SA password is `thepassword123`
+
+> Consult the [docker-compose](https://github.com/ErikVerta/cleancode-labb2-fat/blob/main/cleancode-labb2-fat/docker-compose.yml) file for more information
+
 # API Endpoints
 
 ## api/pizza
