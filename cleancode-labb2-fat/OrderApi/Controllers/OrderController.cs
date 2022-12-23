@@ -13,21 +13,35 @@ namespace OrderApi.Controllers
             _orderRepository = orderRepository;
         }
 
-        [HttpGet]
+        [HttpGet("/orders")]
         public async Task<IActionResult> GetAllOrdersAsync()
         {
-            throw new NotImplementedException();
+            var orders = await _orderRepository.GetAllOrdersAsync();
+            return Ok(orders);
         }
         [HttpGet("/{id}")]
         public async Task<IActionResult> GetOrderByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var order = await _orderRepository.GetOrderByIdAsync(id);
+
+            if (order == null)
+                return BadRequest();
+
+            return Ok(order);
         }
 
-        [HttpPost]
+        [HttpPost("/orders")]
         public async Task<IActionResult> PostOrderAsync([FromBody] Order order)
         {
-            throw new NotImplementedException();
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            var newOrder = await _orderRepository.AddOrderAsync(order);
+
+            if (newOrder == null)
+                return BadRequest();
+
+            return Ok(newOrder);
         }
     }
 }

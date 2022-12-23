@@ -1,4 +1,5 @@
-﻿using OrderApi.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using OrderApi.Interfaces;
 using Shared;
 
 namespace OrderApi.DAL.Repositories
@@ -12,34 +13,52 @@ namespace OrderApi.DAL.Repositories
             _context = context;
         }
 
-        public async Task<Order> AddOrderAsync(Order order)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<Order> DeleteOrderAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task<IEnumerable<Order>> GetAllOrdersAsync()
         {
-            throw new NotImplementedException();
+            var orders = await _context.Orders.ToListAsync();
+            return orders;
         }
 
         public async Task<Order> GetOrderByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var order = await _context.Orders.FirstOrDefaultAsync(o => o.Id == id);
+            return order;
         }
 
-        public async Task<Order> ModifyOrderAsync(int id, List<Pizza> pizzas)
+        public async Task<Order> AddOrderAsync(Order order)
         {
-            throw new NotImplementedException();
+            if (_context.Orders.Any(p => p.Id == order.Id))
+                return null;
+
+            var addOrder = await NewOrderAsync(order);
+
+            if (order == null)
+                return null;
+
+            await _context.Orders.AddAsync(order);
+            await _context.SaveChangesAsync();
+            return addOrder;
         }
 
-        public async Task<Order> UpdateOrderAsync(int id, Order order)
+        private async Task<Order> NewOrderAsync(Order order)
         {
-            throw new NotImplementedException();
+            var pizzas = new List<Pizza>();
+
+            foreach (var id in order.Pizzas)
+            {
+                var addToOrder = await _context.Pizzas.FindAsync(id);
+                if (addToOrder is null)
+                    return null;
+                pizzas.Add(addToOrder);
+            }
+
+            var newOrder = new Order()
+            {
+                Id = order.Id,
+                OrderDate = order.OrderDate,
+                Pizzas = pizzas
+            };
+            return newOrder;
         }
     }
 }
