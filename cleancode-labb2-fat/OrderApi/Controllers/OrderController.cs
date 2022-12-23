@@ -5,6 +5,8 @@ using Shared;
 
 namespace OrderApi.Controllers
 {
+    [ApiController]
+    [Route("orders")]
     public class OrderController : Controller
     {
         private readonly IOrderRepository _orderRepository;
@@ -14,13 +16,14 @@ namespace OrderApi.Controllers
             _orderRepository = orderRepository;
         }
 
-        [HttpGet("/orders")]
+        [HttpGet]
         public async Task<IActionResult> GetAllOrdersAsync()
         {
             var orders = await _orderRepository.GetAllOrdersAsync();
             return Ok(orders);
         }
-        [HttpGet("/{id}")]
+
+        [HttpGet("{id}")]
         public async Task<IActionResult> GetOrderByIdAsync(int id)
         {
             var order = await _orderRepository.GetOrderByIdAsync(id);
@@ -31,7 +34,7 @@ namespace OrderApi.Controllers
             return Ok(order);
         }
 
-        [HttpPost("/orders")]
+        [HttpPost]
         public async Task<IActionResult> PostOrderAsync([FromBody] OrderDTO orderDto)
         {
             if (!ModelState.IsValid)

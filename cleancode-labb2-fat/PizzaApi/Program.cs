@@ -7,9 +7,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-string host = "localhost";
-string db = "Pizza";
-string password = "thepassword123";
+string host = Environment.GetEnvironmentVariable("DB_HOST")!;
+string db = Environment.GetEnvironmentVariable("DB_NAME")!;
+string password = Environment.GetEnvironmentVariable("DB_SA_PASSWORD")!;
 string connectionString = $"Data Source={host};Initial Catalog={db};User ID=sa;Password={password};TrustServerCertificate=True;";
 
 builder.Services.AddControllers();

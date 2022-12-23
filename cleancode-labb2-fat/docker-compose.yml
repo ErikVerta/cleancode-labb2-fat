@@ -1,0 +1,46 @@
+version: '3.4'
+
+networks:
+  backend:
+
+services:
+  pizzadb:
+    container_name: pizza-db
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=thepassword123
+    networks:
+      - backend
+    ports:
+      - 8001:1433
+  pizzaapi:
+    container_name: pizza-api
+    image: ${DOCKER_REGISTRY-}pizzaapi
+    build:
+      context: .
+      dockerfile: PizzaApi/Dockerfile
+    networks:
+      - backend
+    ports:
+      - 8002:80
+      - 8002:443
+    environment:
+      - DB_HOST=pizzadb
+      - DB_NAME=pizza
+      - DB_SA_PASSWORD=thepassword123
+  orderapi:
+    container_name: order-api
+    image: ${DOCKER_REGISTRY-}orderapi
+    build:
+      context: .
+      dockerfile: OrderApi/Dockerfile
+    networks:
+      - backend
+    ports:
+      - 8004:80
+      - 8004:443
+    environment:
+      - DB_HOST=pizzadb
+      - DB_NAME=order
+      - DB_SA_PASSWORD=thepassword123
